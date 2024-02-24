@@ -1,23 +1,47 @@
-import logo from './logo.svg';
+import React,{useState} from 'react';
 import './App.css';
 
 function App() {
+  const [userName,setUserName]=useState("");
+  const [password,setPassword]=useState("");
+  const[error,setError]=useState("");
+  const[isSubmitted,setIsSubmitted]=useState(false);
+  const handleSubmit=(e)=>{
+    e.preventDefault();
+    if(userName=="user" && password=="password"){
+      setIsSubmitted(true)
+    }
+    else{
+      setError("Invalid username or password");
+    }
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Login Page</h1>
+      {
+        isSubmitted?(
+          <div>
+            <p>Welcome, {userName}!</p>
+            </div>
+        ):(
+          <form onSubmit={handleSubmit}>
+            {error && <p>{error}</p>}
+            <div>
+              <label>
+                UserName:
+              </label> 
+              <input required  onChange={(e)=>{setUserName(e.target.value)}} type="text" placeholder='username' value={userName}/>
+            </div>
+            <div>
+              <label>
+                Password:
+              </label> 
+              <input required  onChange={(e)=>{setPassword(e.target.value)}} type="text" placeholder='password' value={password}/>
+            </div>
+            <button type='submit'>Submit</button>
+          </form>
+        )
+      }
     </div>
   );
 }
