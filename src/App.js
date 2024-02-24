@@ -9,10 +9,14 @@ function App() {
   const handleSubmit=(e)=>{
     e.preventDefault();
     if(userName=="user" && password=="password"){
-      setIsSubmitted(true)
+      setError("");
+      setIsSubmitted(true);
+      setUserName("");
+      setPassword("");
     }
     else{
       setError("Invalid username or password");
+      setIsSubmitted(false);
     }
   }
   return (
@@ -30,13 +34,13 @@ function App() {
               <label>
                 UserName:
               </label> 
-              <input required  onChange={(e)=>{setUserName(e.target.value)}} type="text" placeholder='username' value={userName}/>
+              <input required  onChange={(e)=>{setUserName(e.target.value)}} type="text" placeholder='username' value={userName} id="username"/>
             </div>
             <div>
               <label>
                 Password:
               </label> 
-              <input required  onChange={(e)=>{setPassword(e.target.value)}} type="text" placeholder='password' value={password}/>
+              <input required  onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder='password' value={password} id="password"/>
             </div>
             <button type='submit'>Submit</button>
           </form>
